@@ -14,9 +14,14 @@ result = open('result.txt', 'w')
 print ("Resultados:\n", file=result)
 result.close()
 
+final = open('final.txt', 'w')
+print ("Resultados:\n", file=final)
+final.close()
+
 #Preparar archivos
 log = open('log.txt', 'a')
 result = open('result.txt', 'a')
+final = open('final.txt', 'a')
 
 #Tokenizar:
 #uso de identificadores
@@ -32,6 +37,7 @@ result = open('result.txt', 'a')
 identificadores = {
     'IDENTIFICADOR': r'^([a-zA-Z_][a-zA-Z\\d_$]*)$'
 }
+claves_identificador = identificadores.keys()
 
 commentarios = {
     'COMENTARIO_LINEA': r'\/\/[\s\S]*?\n',
@@ -166,15 +172,37 @@ for linea in codigo:
     print ("Linea #",lineaIndex,"\n",linea, file=log)
 
     tokens = getTokens(linea)
+    for idx, token in enumerate(tokens):
 
-    for token in tokens:
+        tokens[idx] = re.sub(identificadores['IDENTIFICADOR'], 'IDENTIFICADOR('+token+')', token)
+
         if token in claves_operadores:
-            token = 1
+             tokens[idx] = "OPERADOR("+token+")"
+             
+        if token in claves_operadores_comp:
+            tokens[idx] = "OPERADOR_COMPUESTO("+token+")"
+
+        if token in claves_palabras_res:
+            tokens[idx] = "PALABRA_RESERVADA("+token+")"
+
+        if token in claves_puntuacion:
+            tokens[idx] = "PUNTUACION("+token+")"
+
+        if token in claves_tipos_de_datos:
+             tokens[idx] = "TIPO_DE_DATO("+token+")"
+        
+        if token.isnumeric():
+            tokens[idx] = "CONSTANTE("+token+")"
+        
+        
+            
         #Reemplazar por valores de diccionarios
         #Identificar strings y numeros
         #PALABRA_RESERVADA('using') IDENTIFICADOR('System') PUNTUACION(PUNTO_COMA) <- Posible forma
         #['using', 'System', ';']
-            
+         
     lineaIndex += 1
+    print(tokens, file=final)
+
 
 log.close()

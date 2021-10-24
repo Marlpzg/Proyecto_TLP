@@ -9,7 +9,7 @@ Linea # 3
 Linea # 4 
        static void Main(string[] args) {
 Linea # 5 
-          int[] intarr = { 78, 55, 45, 98, 13 };
+          int[] arr = { 78, 55, 45, 98, 13 };
 Linea # 6 
           int temp;
 Linea # 7 
