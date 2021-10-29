@@ -1,0 +1,30 @@
+Hash Table de la tokenizacion:
+
+[
+	[{'PALABRA_RESERVADA': 'using'}, {'IDENTIFICADOR': 'System'}, {'PUNTUACION': ';'}],
+	[{'PALABRA_RESERVADA': 'namespace'}, {'IDENTIFICADOR': 'BubbleSort'}, {'PUNTUACION': '{'}],
+	[{'PALABRA_RESERVADA': 'class'}, {'IDENTIFICADOR': 'MySort'}, {'PUNTUACION': '{'}],
+	[{'PALABRA_RESERVADA': 'static'}, {'TIPO_DE_DATO': 'void'}, {'IDENTIFICADOR': 'Main'}, {'PUNTUACION': '('}, {'TIPO_DE_DATO': 'string'}, {'PUNTUACION': '['}, {'PUNTUACION': ']'}, {'IDENTIFICADOR': 'args'}, {'PUNTUACION': ')'}, {'PUNTUACION': '{'}],
+	[{'TIPO_DE_DATO': 'int'}, {'PUNTUACION': '['}, {'PUNTUACION': ']'}, {'IDENTIFICADOR': 'arr'}, {'OPERADOR': '='}, {'PUNTUACION': '{'}, {'NUMERO': '78'}, {'PUNTUACION': ','}, {'NUMERO': '55'}, {'PUNTUACION': ','}, {'NUMERO': '45'}, {'PUNTUACION': ','}, {'NUMERO': '98'}, {'PUNTUACION': ','}, {'NUMERO': '13'}, {'PUNTUACION': '}'}, {'PUNTUACION': ';'}],
+	[{'TIPO_DE_DATO': 'int'}, {'IDENTIFICADOR': 'temp'}, {'PUNTUACION': ';'}],
+	[{'PALABRA_RESERVADA': 'for'}, {'PUNTUACION': '('}, {'TIPO_DE_DATO': 'int'}, {'IDENTIFICADOR': 'j'}, {'OPERADOR': '='}, {'NUMERO': '0'}, {'PUNTUACION': ';'}, {'IDENTIFICADOR': 'j'}, {'OPERADOR': '<='}, {'IDENTIFICADOR': 'arr'}, {'PUNTUACION': '.'}, {'IDENTIFICADOR': 'Length'}, {'OPERADOR': '-'}, {'NUMERO': '2'}, {'PUNTUACION': ';'}, {'IDENTIFICADOR': 'j'}, {'OPERADOR': '++'}, {'PUNTUACION': ')'}, {'PUNTUACION': '{'}],
+	[{'PALABRA_RESERVADA': 'for'}, {'PUNTUACION': '('}, {'TIPO_DE_DATO': 'int'}, {'IDENTIFICADOR': 'i'}, {'OPERADOR': '='}, {'NUMERO': '0'}, {'PUNTUACION': ';'}, {'IDENTIFICADOR': 'i'}, {'OPERADOR': '<='}, {'IDENTIFICADOR': 'arr'}, {'PUNTUACION': '.'}, {'IDENTIFICADOR': 'Length'}, {'OPERADOR': '-'}, {'NUMERO': '2'}, {'PUNTUACION': ';'}, {'IDENTIFICADOR': 'i'}, {'OPERADOR': '++'}, {'PUNTUACION': ')'}, {'PUNTUACION': '{'}],
+	[{'PALABRA_RESERVADA': 'if'}, {'PUNTUACION': '('}, {'IDENTIFICADOR': 'arr'}, {'PUNTUACION': '['}, {'IDENTIFICADOR': 'i'}, {'PUNTUACION': ']'}, {'OPERADOR': '>'}, {'IDENTIFICADOR': 'arr'}, {'PUNTUACION': '['}, {'IDENTIFICADOR': 'i'}, {'OPERADOR': '+'}, {'NUMERO': '1'}, {'PUNTUACION': ']'}, {'PUNTUACION': ')'}, {'PUNTUACION': '{'}],
+	[{'IDENTIFICADOR': 'temp'}, {'OPERADOR': '='}, {'IDENTIFICADOR': 'arr'}, {'PUNTUACION': '['}, {'IDENTIFICADOR': 'i'}, {'OPERADOR': '+'}, {'NUMERO': '1'}, {'PUNTUACION': ']'}, {'PUNTUACION': ';'}],
+	[{'IDENTIFICADOR': 'arr'}, {'PUNTUACION': '['}, {'IDENTIFICADOR': 'i'}, {'OPERADOR': '+'}, {'NUMERO': '1'}, {'PUNTUACION': ']'}, {'OPERADOR': '='}, {'IDENTIFICADOR': 'arr'}, {'PUNTUACION': '['}, {'IDENTIFICADOR': 'i'}, {'PUNTUACION': ']'}, {'PUNTUACION': ';'}],
+	[{'IDENTIFICADOR': 'arr'}, {'PUNTUACION': '['}, {'IDENTIFICADOR': 'i'}, {'PUNTUACION': ']'}, {'OPERADOR': '='}, {'IDENTIFICADOR': 'temp'}, {'PUNTUACION': ';'}],
+	[{'PUNTUACION': '}'}],
+	[{'PUNTUACION': '}'}],
+	[{'PUNTUACION': '}'}],
+	[{'IDENTIFICADOR': 'Console'}, {'PUNTUACION': '.'}, {'IDENTIFICADOR': 'WriteLine'}, {'PUNTUACION': '('}, {'PUNTUACION': '"'}, {'ERROR': 'Sorted:'}, {'PUNTUACION': '"'}, {'PUNTUACION': ')'}, {'PUNTUACION': ';'}],
+	[{'PALABRA_RESERVADA': 'foreach'}, {'PUNTUACION': '('}, {'TIPO_DE_DATO': 'int'}, {'IDENTIFICADOR': 'p'}, {'PALABRA_RESERVADA': 'in'}, {'IDENTIFICADOR': 'arr'}, {'PUNTUACION': ')'}, {'PUNTUACION': '{'}],
+	[{'IDENTIFICADOR': 'Console'}, {'PUNTUACION': '.'}, {'IDENTIFICADOR': 'Write'}, {'PUNTUACION': '('}, {'IDENTIFICADOR': 'p'}, {'OPERADOR': '+'}, {'PUNTUACION': '"'}, {'PUNTUACION': '"'}, {'PUNTUACION': ')'}, {'PUNTUACION': ';'}],
+	[{'PUNTUACION': '}'}],
+	[{'PALABRA_RESERVADA': 'if'}, {'PUNTUACION': '('}, {'NUMERO': '1'}, {'OPERADOR': '=='}, {'NUMERO': '2'}, {'OPERADOR': '&'}, {'NUMERO': '2'}, {'OPERADOR': '==='}, {'NUMERO': '3'}, {'OPERADOR': '||'}, {'NUMERO': '1'}, {'OPERADOR': '=='}, {'NUMERO': '1'}, {'OPERADOR': '&&'}, {'PALABRA_RESERVADA': 'true'}, {'OPERADOR': '==='}, {'PALABRA_RESERVADA': 'true'}, {'OPERADOR': '|'}, {'PALABRA_RESERVADA': 'false'}, {'OPERADOR': '=='}, {'PALABRA_RESERVADA': 'false'}, {'PUNTUACION': ')'}, {'PUNTUACION': '{'}],
+	[{'IDENTIFICADOR': 'Console'}, {'PUNTUACION': '.'}, {'IDENTIFICADOR': 'Write'}, {'PUNTUACION': '('}, {'PUNTUACION': '"'}, {'IDENTIFICADOR': 'Funciona'}, {'PUNTUACION': '"'}, {'PUNTUACION': ')'}, {'PUNTUACION': ';'}],
+	[{'PUNTUACION': '}'}],
+	[{'IDENTIFICADOR': 'Console'}, {'PUNTUACION': '.'}, {'IDENTIFICADOR': 'Read'}, {'PUNTUACION': '('}, {'PUNTUACION': ')'}, {'PUNTUACION': ';'}],
+	[{'PUNTUACION': '}'}],
+	[{'PUNTUACION': '}'}],
+	[{'PUNTUACION': '}'}]
+]

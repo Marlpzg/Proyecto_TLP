@@ -6,22 +6,27 @@ import re
 
 f = open('test.cs', 'r')
 #Vaciar archivos
-log = open('log.txt', 'w')
-print ("Resultados:\n", file=log)
+log = open('Step 1.txt', 'w')
+print ("Codigo separado por lineas:\n", file=log)
 log.close()
 
-result = open('result.txt', 'w')
-print ("Resultados:\n", file=result)
+result = open('Step 2.txt', 'w')
+print ("Tokenizacion inicial:\n", file=result)
 result.close()
 
-final = open('final.txt', 'w')
-print ("Resultados:\n", file=final)
+final = open('Step 3.txt', 'w')
+print ("Hash Table de la tokenizacion:\n", file=final)
 final.close()
 
+finalRes = open('Hash Table.txt', 'w')
+print ("Hash Table de la tokenizacion:\n", file=finalRes)
+finalRes.close()
+
 #Preparar archivos
-log = open('log.txt', 'a')
-result = open('result.txt', 'a')
-final = open('final.txt', 'a')
+log = open('Step 1.txt', 'a')
+result = open('Step 2.txt', 'a')
+final = open('Step 3.txt', 'a')
+finalRes = open('Hash Table.txt', 'a')
 
 #Tokenizar:
 #uso de identificadores
@@ -52,7 +57,9 @@ operadores = {
     '*': 'MULTIPLICAR',
     '>': 'MAYOR_QUE', 
     '<': 'MENOR_QUE',
-    '!': 'NEGACION'
+    '!': 'NEGACION',
+    '&': 'AND_LOGICO',
+    '|': 'OR_LOGICO'
 }
 claves_operadores = operadores.keys()
 
@@ -62,9 +69,10 @@ operadores_comp = {
     '++': 'INCREMENTO',
     '--': 'DECREMENTO',
     '==': 'COMPARAR_IGUAL',
+    '===': 'COMPARAR_IGUAL_TIPADO',
     '!=': 'COMPARAR_DIF',
-    '&&': 'AND',
-    '||': 'OR'
+    '&&': 'AND_LOGICO_CONDICIONAL',
+    '||': 'OR_LOGICO_CONDICIONAL'
 }
 claves_operadores_comp = operadores_comp.keys()
 
@@ -79,7 +87,9 @@ palabras_reservadas = {
     'foreach': 'BUCLE_RECORRIDO', 
     'private': 'ACCESO_PRIVADO',
     'public': 'ACCESO_PUBLICO',
-    'in': 'DENTRO_DE'
+    'in': 'DENTRO_DE',
+    'true': 'VERDADERO',
+    'false': 'FALSO'
 }
 claves_palabras_res = palabras_reservadas.keys()
 
@@ -95,6 +105,7 @@ tipos_de_datos = {
 claves_tipos_de_datos = tipos_de_datos.keys()
 
 puntuacion = {
+    '.': 'PUNTO',
     ';': 'PUNTO_COMA',
     '\'': 'COMILLA_SIMPLE',
     ',': 'COMA',
@@ -104,7 +115,7 @@ puntuacion = {
     ']': 'CORCHETE_DER',
     '"': 'COMILLA_DOBLE',
     '{': 'LLAVE_IZQ',
-    '}': 'LLAVE_DER'   
+    '}': 'LLAVE_DER'
 }
 claves_puntuacion = puntuacion.keys()
 claves = list(claves_operadores)+list(claves_operadores_comp)+list(claves_palabras_res)+list(claves_puntuacion)+list(claves_tipos_de_datos)
@@ -124,7 +135,7 @@ def getTokens(linea):
                 if char in claves:
                     extra = 0
                     if j < len(token)-1:
-                        if token[j+1] == '+' or token[j+1] == '-' or token[j+1] == '=':
+                        if token[j+1] == '+' or token[j+1] == '-' or token[j+1] == '=' or token[j+1] == '|' or token[j+1] == '&':
                             extra = 1
                     if(len(tokenBuffer)>0):
                         tokensMiddle = [tokenBuffer, token[j:]]
@@ -139,7 +150,7 @@ def getTokens(linea):
                     if tokenBuffer in claves :
                         if not(tokenBuffer+token[j+1] in claves) and token[j+1]==' ':
                             limit = j
-                            if token[j+1] == '+' or token[j+1] == '-' or token[j+1] == '=':
+                            if token[j+1] == '+' or token[j+1] == '-' or token[j+1] == '=' or token[j+1] == '|' or token[j+1] == '&':
                                 limit = j+1
                             tokensMiddle = [token[0:limit+1], token[limit+1:]]
                             tokensPrev = tokens[0:i]
@@ -149,15 +160,15 @@ def getTokens(linea):
         i+=1
         stop = len(tokens)
 
-    s = "" 
-    for t in tokens:
-        s += t+" "
+    for i,t in enumerate(tokens):
+        if t == '==' and tokens[i+1] == '=':
+            tokens[i] = '==='
+            del tokens[i+1]
 
     print(tokens, file=result)
     return tokens
 
 #--------------------------- MAIN --------------------------
-#dataFlag = False
 
 lectura = f.read()
 #Se eliminan los comentarios
@@ -168,41 +179,79 @@ lectura = re.sub(commentarios['COMENTARIO_LINEA'], '\n', lectura)
 codigo =  lectura.split('\n')
 lineaIndex = 1
 
+hashTable = []
+hashTableText = []
+
 for linea in codigo:
     print ("Linea #",lineaIndex,"\n",linea, file=log)
-
     tokens = getTokens(linea)
-    for idx, token in enumerate(tokens):
+    tokensText = tokens.copy()
 
-        tokens[idx] = re.sub(identificadores['IDENTIFICADOR'], 'IDENTIFICADOR('+token+')', token)
+    #Si la linea tiene contenido se utiliza
+    if len(tokens) > 0:
+        for idx, token in enumerate(tokens):
+            flag = False
 
-        if token in claves_operadores:
-             tokens[idx] = "OPERADOR("+token+")"
-             
-        if token in claves_operadores_comp:
-            tokens[idx] = "OPERADOR_COMPUESTO("+token+")"
-
-        if token in claves_palabras_res:
-            tokens[idx] = "PALABRA_RESERVADA("+token+")"
-
-        if token in claves_puntuacion:
-            tokens[idx] = "PUNTUACION("+token+")"
-
-        if token in claves_tipos_de_datos:
-             tokens[idx] = "TIPO_DE_DATO("+token+")"
-        
-        if token.isnumeric():
-            tokens[idx] = "CONSTANTE("+token+")"
-        
-        
+            if re.match(identificadores['IDENTIFICADOR'], token):
+                tokens[idx] = {'IDENTIFICADOR': token}
+                tokensText[idx] = tokens[idx]
+                flag = True
             
-        #Reemplazar por valores de diccionarios
-        #Identificar strings y numeros
-        #PALABRA_RESERVADA('using') IDENTIFICADOR('System') PUNTUACION(PUNTO_COMA) <- Posible forma
-        #['using', 'System', ';']
-         
-    lineaIndex += 1
-    print(tokens, file=final)
+            if token in claves_operadores:
+                tokens[idx] = {"OPERADOR": token}
+                tokensText[idx] = {"OPERADOR": operadores[token]}
+                flag = True
 
+            if token in claves_operadores_comp:
+                tokens[idx] = {"OPERADOR": token}
+                tokensText[idx] = {"OPERADOR": operadores_comp[token]}
+                flag = True
+
+            if token in claves_palabras_res:
+                tokens[idx] = {"PALABRA_RESERVADA": token}
+                tokensText[idx] = {"PALABRA_RESERVADA": palabras_reservadas[token]}
+                flag = True
+
+            if token in claves_puntuacion:
+                tokens[idx] = {"PUNTUACION": token}
+                tokensText[idx] = {"PUNTUACION": puntuacion[token]}
+                flag = True
+
+            if token in claves_tipos_de_datos:
+                tokens[idx] = {"TIPO_DE_DATO": token}
+                tokensText[idx] = {"TIPO_DE_DATO": tipos_de_datos[token]}
+                flag = True
+
+            if idx > 0 and idx < len(tokens)-1 and tokens[idx-1] == "PUNTUACION(\")" and tokens[idx+1] == "\"":
+                tokens[idx] = {"CADENA": token}
+                tokensText[idx] ={"CADENA": token}
+                flag = True
+                
+            if token.isnumeric():
+                tokens[idx] = {"NUMERO": token}
+                tokensText[idx] = {"NUMERO": token}
+                flag = True
+
+            if not(flag):
+                tokens[idx] = {"ERROR": token}
+                tokensText[idx] = {"ERROR": token}
+            
+        lineaIndex += 1
+        hashTable.append(tokens)
+        hashTableText.append(tokensText)
+
+print("[", file=final)
+print("[", file=finalRes)
+for i,row in enumerate(hashTable):
+    end = ""
+    if i < len(hashTable)-1:
+        end = ","
+    print("\t"+str(row)+end, file=final)
+    print("\t"+str(hashTableText[i])+end, file=finalRes)
+print("]", file=final)
+print("]", file=finalRes)
 
 log.close()
+result.close()
+final.close()
+finalRes.close()

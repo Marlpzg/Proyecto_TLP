@@ -1,4 +1,4 @@
-Resultados:
+Codigo separado por lineas:
 
 Linea # 1 
  using System;
@@ -14,49 +14,49 @@ Linea # 6
           int temp;
 Linea # 7 
           
-Linea # 8 
+Linea # 7 
           for (int j=0; j <= arr.Length - 2; j++) {
-Linea # 9 
+Linea # 8 
              for (int i = 0; i<=arr.Length - 2; i++) {
-Linea # 10 
+Linea # 9 
                 if (arr[i] > arr[i + 1]) {
-Linea # 11 
+Linea # 10 
                    temp= arr[i + 1];
-Linea # 12 
+Linea # 11 
                    arr[i + 1] = arr[i];
-Linea # 13 
+Linea # 12 
                    arr[i] = temp;
-Linea # 14 
+Linea # 13 
                 }
-Linea # 15 
+Linea # 14 
              }
+Linea # 15 
+          }
 Linea # 16 
-          }
-Linea # 17 
           
-Linea # 18 
+Linea # 16 
           Console.WriteLine("Sorted:");
-Linea # 19 
+Linea # 17 
           foreach (int p in arr){
-Linea # 20 
+Linea # 18 
              Console.Write(p + " ");
-Linea # 21 
+Linea # 19 
           }
-Linea # 22 
+Linea # 20 
  
-Linea # 23 
-          if(1==1){
-Linea # 24 
+Linea # 20 
+          if(1==2 & 2===3 || 1==1 && true===true | false==false){
+Linea # 21 
              Console.Write("Funciona");
-Linea # 25 
+Linea # 22 
           }
-Linea # 26 
+Linea # 23 
           Console.Read();
-Linea # 27 
+Linea # 24 
        }
-Linea # 28 
+Linea # 25 
     }
-Linea # 29 
+Linea # 26 
  }
-Linea # 30 
+Linea # 27 
  
