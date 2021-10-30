@@ -85,6 +85,7 @@ palabras_reservadas = {
     'if': 'CONDICIONAL',
     'for': 'BUCLE_PARA',
     'foreach': 'BUCLE_RECORRIDO', 
+    'while': 'BUCLE_MIENTRAS'
     'private': 'ACCESO_PRIVADO',
     'public': 'ACCESO_PUBLICO',
     'in': 'DENTRO_DE',
