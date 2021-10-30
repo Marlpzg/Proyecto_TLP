@@ -163,6 +163,6 @@ Son los caracteres usados para poder construir las instrucciones programáticas 
 |" | 'COMILLA_DOBLE' |
 | {  |  'LLAVE_IZQ'  |
 |  } |'LLAVE_DER'|
-.
+
 
 
