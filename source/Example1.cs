@@ -22,10 +22,6 @@ namespace BubbleSort {
          foreach (int p in arr){
             Console.Write(p + " ");
          }
-
-         if(1==2 & 2===3 || 1==1 && true===true | false==false){
-            Console.Write("Funciona");
-         }
          Console.Read();
       }
    }

@@ -1,48 +1,42 @@
 #----------------------------------
 #   Lexer C#
 #----------------------------------
-
 import re
-
-f = open('test.cs', 'r')
+print("Este lexer puede acceder a los archivos fuente dentro de la carpeta source.")
+archivo = input("Introduzca el nombre del archivo a tokenizar (Sin extension): ")
+f = open('./source/'+archivo+'.cs', 'r')
 #Vaciar archivos
-log = open('Step 1.txt', 'w')
+log = open('./source/'+archivo+' - Step 1.txt', 'w')
 print ("Codigo separado por lineas:\n", file=log)
 log.close()
 
-result = open('Step 2.txt', 'w')
+result = open('./source/'+archivo+' - Step 2.txt', 'w')
 print ("Tokenizacion inicial:\n", file=result)
 result.close()
 
-final = open('Step 3.txt', 'w')
+final = open('./source/'+archivo+' - Step 3.txt', 'w')
 print ("Hash Table de la tokenizacion:\n", file=final)
 final.close()
 
-finalRes = open('Hash Table.txt', 'w')
+finalRes = open('./source/'+archivo+' - Hash Table.txt', 'w')
 print ("Hash Table de la tokenizacion:\n", file=finalRes)
 finalRes.close()
 
 #Preparar archivos
-log = open('Step 1.txt', 'a')
-result = open('Step 2.txt', 'a')
-final = open('Step 3.txt', 'a')
-finalRes = open('Hash Table.txt', 'a')
-
-#Tokenizar:
-#uso de identificadores
-#palabras reservadas
-#operadores
-#caracteres
-#palabras de inicio y fin de bloque
-#constantes
-#cadenas de caracteres
-#entre otros
+log = open('./source/'+archivo+' - Step 1.txt', 'a')
+result = open('./source/'+archivo+' - Step 2.txt', 'a')
+final = open('./source/'+archivo+' - Step 3.txt', 'a')
+finalRes = open('./source/'+archivo+' - Hash Table.txt', 'a')
 
 #Expresiones regulares
 identificadores = {
     'IDENTIFICADOR': r'^([a-zA-Z_][a-zA-Z\\d_$]*)$'
 }
 claves_identificador = identificadores.keys()
+
+cadenas = {
+    'CADENA': r'"(.*?)"'
+}
 
 commentarios = {
     'COMENTARIO_LINEA': r'\/\/[\s\S]*?\n',
@@ -55,6 +49,7 @@ operadores = {
     '-': 'RESTAR',  
     '/': 'DIVIDIR',
     '*': 'MULTIPLICAR',
+    '%': 'MODULO',
     '>': 'MAYOR_QUE', 
     '<': 'MENOR_QUE',
     '!': 'NEGACION',
@@ -78,19 +73,20 @@ claves_operadores_comp = operadores_comp.keys()
 
 palabras_reservadas = {
     'using': 'USAR',
-    'namespace': 'NOMBRE_ESPACIO',
+    'namespace': 'ESPACIO_NOMBRES',
     'class': 'CLASE',
     'static': 'ESTATICO',
     'new': 'NUEVO',
     'if': 'CONDICIONAL',
     'for': 'BUCLE_PARA',
     'foreach': 'BUCLE_RECORRIDO', 
-    'while': 'BUCLE_MIENTRAS'
+    'while': 'BUCLE_MIENTRAS',
     'private': 'ACCESO_PRIVADO',
     'public': 'ACCESO_PUBLICO',
     'in': 'DENTRO_DE',
     'true': 'VERDADERO',
-    'false': 'FALSO'
+    'false': 'FALSO',
+    'return': 'RETORNAR'
 }
 claves_palabras_res = palabras_reservadas.keys()
 
@@ -185,7 +181,33 @@ hashTableText = []
 
 for linea in codigo:
     print ("Linea #",lineaIndex,"\n",linea, file=log)
-    tokens = getTokens(linea)
+    preTokens = getTokens(linea)
+
+    #Deteccion de cadenas
+    stringToken = ""
+    stringFlag = False
+    tokens = []
+
+    for t in preTokens:
+        if t=='"' and not(stringFlag):
+            stringFlag = True
+            stringToken += "\""
+            continue
+
+        if t=='"' and stringFlag:
+            stringFlag = False
+            stringToken = stringToken[:-1]
+            stringToken += "\""
+            tokens.append(stringToken)
+            stringToken = ""
+            continue
+
+        if stringFlag:
+            stringToken += t+" "
+
+        if not(stringFlag):
+            tokens.append(t)
+
     tokensText = tokens.copy()
 
     #Si la linea tiene contenido se utiliza
@@ -222,12 +244,12 @@ for linea in codigo:
                 tokens[idx] = {"TIPO_DE_DATO": token}
                 tokensText[idx] = {"TIPO_DE_DATO": tipos_de_datos[token]}
                 flag = True
-
-            if idx > 0 and idx < len(tokens)-1 and tokens[idx-1] == "PUNTUACION(\")" and tokens[idx+1] == "\"":
-                tokens[idx] = {"CADENA": token}
-                tokensText[idx] ={"CADENA": token}
+            
+            if re.match(cadenas['CADENA'], token):
+                tokens[idx] = {"CADENA": token.replace("\"", "")}
+                tokensText[idx] ={"CADENA": token.replace("\"", "")}
                 flag = True
-                
+            
             if token.isnumeric():
                 tokens[idx] = {"NUMERO": token}
                 tokensText[idx] = {"NUMERO": token}
