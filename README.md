@@ -12,6 +12,13 @@ La sintaxis y estructuración de C# es muy similar a la C++. Sin embargo, su sen
 * __Modernidad:__ Incorpora elementos muy útiles que en otros lenguajes como Java o C++ hay que simular, como un tipo básico decimal que permita realizar operaciones de alta precisión con reales de 128 bits, la inclusión de una instrucción __foreach__ que permita recorrecr colecciones con facilidad y es ampliable a tipos definidos por el usuario o la inclusión de un tipo básico __string__ para representar cadenas.
 * __Orientación a objetos:__ Como todo lenguaje de programación de propósito general actual, C# es un lenguaje orientado a objetos. Este concepto es tan puro que no admite ni funciones ni variables globales sino que todo el código y datos han de definirse dentro de definiciones de tipos de datos.
 
+# Modo de uso del lexer
+El código fuente debe guardarse en la carpeta **source**. Para ejecutar el lexer debe usarse la siguiente línea de comando:
+```
+python lexer.py
+```
+Posteriormente se solicitará el nombre del archivo a tokenizar, no se debe incluir la extensión del archivo.
+
 # Sintaxis
 El preprocesador no interpreta de ninguna manera el código fuente del fichero sino que solo interpreta de dicho fichero lo que se denominan **directivas de preprocesado**. Estas directivas son línas de texto del fichero fuente que se caracterizan porque en ellas el primer carácter no blanco que aparece es una almohadilla (#).
 
