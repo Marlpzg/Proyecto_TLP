@@ -40,7 +40,11 @@ caracteres alfanuméricos –incluidas vocales acentuadas y eñes- tales que el 
 * **Write**: Escribe la representación de texto del valor o valores especificados en el flujo de salida estándar.
 * **Read**: Lee el siguiente carácter del flujo de entrada estándar.
 * **Funciona**: Comprueba el funcionamiento del Step 1.
+
 Los indicadores son tokenizados utilizando la siguiente expresión regular: `^([a-zA-Z_][a-zA-Z\\d_$]*)$`
+
+# Cadenas de texto
+Todo texto entre dos comillas dobles se considera como una cadena de texto, no se ha validado el escapado de comillas dobles para las cadenas de texto.
 
 # Palabras reservadas
 Los siguientes nombres no son válidos como identificadores ya que tienen un significado especial en el lenguaje: 
